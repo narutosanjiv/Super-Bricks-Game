@@ -4,7 +4,6 @@
 
 Bricks.Brick = function (game, options) {
 	this.game = game;
-
 	this.defaultOptions = {
 		height: 15,
 		width: 20,
@@ -12,10 +11,13 @@ Bricks.Brick = function (game, options) {
 		y: 0,
 		color: "#C6C6C6"
 	};
-
 	this.alive = true;
-
 	this.options = this.game.utils.extend(this.defaultOptions, options);
+	this.init();
+};
+
+Bricks.Brick.prototype.init = function () {
+	this.game.addStaticBallCollider(this.collide, this, this.options);
 };
 
 Bricks.Brick.prototype.render = function () {
@@ -27,6 +29,8 @@ Bricks.Brick.prototype.render = function () {
 	}
 };
 
-Bricks.Brick.prototype.collide = function () {
+Bricks.Brick.prototype.collide = function (ball) {
+	ball.options.speed.y = -ball.options.speed.y;
 	this.alive = false;
+	this.game.removeStaticBallCollider(this.options);
 };
