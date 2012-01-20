@@ -18,7 +18,7 @@ Bricks.Level = function (game, options) {
 		bricks: {
 			rows: 4,
 			cols: 5,
-			width: 57,
+			width: null,
 			height: 15,
 			margin: 1,
 			colors: ["#FF1C0A", "#FFFD0A", "#00A308", "#0008DB", "#EB0093"]
@@ -56,6 +56,7 @@ Bricks.Level.prototype.render = function () {
 };
 
 Bricks.Level.prototype.createBricks = function () {
+	this.options.bricks.width = ((this.game.params.width - 2 * this.options.canvas.padding) / this.options.bricks.cols) - this.options.bricks.margin;
 	var i, j, options;
 	this.bricks = [];
 	for (i = 0; i < this.options.bricks.rows; i += 1) {
