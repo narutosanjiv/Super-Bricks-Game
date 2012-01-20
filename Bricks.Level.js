@@ -6,6 +6,9 @@ Bricks.Level = function (game, options) {
 	this.game = game;
 
 	this.defaultOptions = {
+		canvas: {
+			padding: 5
+		},
 		paddles: [
 			{}
 		],
@@ -15,7 +18,7 @@ Bricks.Level = function (game, options) {
 		bricks: {
 			rows: 4,
 			cols: 5,
-			width: null,
+			width: 57,
 			height: 15,
 			margin: 1,
 			colors: ["#FF1C0A", "#FFFD0A", "#00A308", "#0008DB", "#EB0093"]
@@ -52,21 +55,8 @@ Bricks.Level.prototype.render = function () {
 	}
 };
 
-Bricks.Level.prototype.testCollision = function (ball) {
-	var brickRowHeight = this.options.bricks.height + this.options.bricks.margin,
-		brickColWidth = this.options.bricks.width + this.options.bricks.margin,
-		row = Math.floor(ball.position.y / brickRowHeight),
-		col = Math.floor(ball.position.x / brickColWidth);
-
-	if (ball.position.y < this.options.bricks.rows * brickRowHeight && row >= 0 && col >= 0 && this.bricks[row][col].alive) {
-		ball.options.speed.y = -ball.options.speed.y;
-		this.bricks[row][col].collide();
-	}
-};
-
 Bricks.Level.prototype.createBricks = function () {
 	var i, j, options;
-	this.options.bricks.width = Math.floor(this.game.params.width / this.options.bricks.cols) - this.options.bricks.margin;
 	this.bricks = [];
 	for (i = 0; i < this.options.bricks.rows; i += 1) {
 		this.bricks[i] = [];
@@ -74,8 +64,8 @@ Bricks.Level.prototype.createBricks = function () {
 			options = {
 				height: this.options.bricks.height,
 				width: this.options.bricks.width,
-				x: j * (this.options.bricks.width + this.options.bricks.margin),
-				y: i * (this.options.bricks.height + this.options.bricks.margin),
+				x: (j * (this.options.bricks.width + this.options.bricks.margin)) + this.options.canvas.padding,
+				y: (i * (this.options.bricks.height + this.options.bricks.margin)) + this.options.canvas.padding,
 				color: this.options.bricks.colors[this.game.utils.randomFromTo(0, this.options.bricks.colors.length)]
 			};
 			this.bricks[i][j] = new Bricks.Brick(this.game, options);
