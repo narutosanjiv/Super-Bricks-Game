@@ -10,10 +10,18 @@ Bricks.Level = function (game, options) {
 			padding: 5
 		},
 		paddles: [
-			{}
+			{width:120}
 		],
 		balls: [
-			{}
+			{
+				speed: {x: -2,y: 4}, 
+				startPosition: {x: 10,y: 100}
+			},
+			{
+				color: "#333333", 
+				speed: {x: -2,y: 4},
+				startPosition: {x: 290,y: 300}
+			}
 		],
 		bricks: {
 			rows: 4,

@@ -22,7 +22,7 @@ Bricks.Paddle = function (game, options) {
 Bricks.Paddle.prototype.init = function () {
 	this.position.x = this.game.params.width / 2;
 	this.position.y = this.game.params.height - this.options.height;
-
+	this.game.dynamicBallColliders.push(this);
 	var self = this;
 	this.game.utils.addListener(document, "keydown", function (e) { self.onKeyDown.call(self, e); });
 	this.game.utils.addListener(document, "keyup", function (e) { self.onKeyUp.call(self, e); });

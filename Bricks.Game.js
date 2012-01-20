@@ -11,15 +11,14 @@ Bricks.Game = function (canvasId) {
 	};
 	this.context = null;
 	this.canvas = null;
-	
-	this.paddles = [];
-	this.balls = [];
-	
+	this.dynamicBallColliders = [];
 	this.init(canvasId);
 };
 
 Bricks.Game.prototype.init = function (canvasId) {
 	this.utils = new Bricks.Utils(this);
+	this.balls = [];
+	this.paddles = [];
 	this.canvasId = canvasId;
 };
 
@@ -39,7 +38,6 @@ Bricks.Game.prototype.start = function () {
 	}
 	this.addStaticBallCollider(this.wallCollision, this, {x: 0, y: 0, width: this.params.width, height: this.params.height});
 	this.level = new Bricks.Level(this);
-	
 	this.intervalTimer = setInterval(function () { self.update.apply(self); }, interval);
 };
 
@@ -85,7 +83,7 @@ Bricks.Game.prototype.win = function () {
 
 Bricks.Game.prototype.gameOver = function () {
 	clearInterval(this.intervalTimer);
-	if (confirm("Looser!!! Do you want to play again?")) {
+	if (confirm("Loser!!! Do you want to play again?")) {
 		this.reset();
 	}
 
@@ -97,42 +95,33 @@ Bricks.Game.prototype.clear = function () {
 };
 
 Bricks.Game.prototype.addStaticBallCollider = function (func, scope, options) {
-	var i, j, defaultOptions = {
-		x: null,
-		y: null,
-		width: 1,
-		height: 1
-	};
-
-	this.utils.extend(defaultOptions, options);
-
-	for (i = options.x; i < (options.x + options.width); i += 1) {
-		for (j = options.y; j < (options.y + options.height); j += 1) {
-			if ((i === options.x || i === (options.x + options.width - 1)) || (j === options.y || j === (options.y + options.height - 1))) {
-				this.collisionPoints[i][j] = {'func': func, 'scope': scope};
-			}
-		}
-	}
+	this._handleStaticBallCollider(true, options, func, scope);
 };
 
 Bricks.Game.prototype.removeStaticBallCollider = function (options) {
+	this._handleStaticBallCollider(false, options);
+};
+
+Bricks.Game.prototype._handleStaticBallCollider = function (isAdd, options, func, scope) {
 	var i, j, defaultOptions = {
 		x: null,
 		y: null,
 		width: 1,
 		height: 1
 	};
-
 	this.utils.extend(defaultOptions, options);
-
 	for (i = options.x; i < (options.x + options.width); i += 1) {
 		for (j = options.y; j < (options.y + options.height); j += 1) {
 			if ((i === options.x || i === (options.x + options.width - 1)) || (j === options.y || j === (options.y + options.height - 1))) {
-				this.collisionPoints[i][j] = null;
+				if (isAdd) {
+					this.collisionPoints[i][j] = {'func': func, 'scope': scope};
+				} else {
+					this.collisionPoints[i][j] = null;
+				}
 			}
 		}
 	}
-};
+}
 
 Bricks.Game.prototype.testCollision = function (ball) {
 	var x = ball.position.x, y = ball.position.y,

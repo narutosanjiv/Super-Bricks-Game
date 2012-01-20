@@ -51,7 +51,6 @@ Bricks.Utils.prototype.each = function (elements, func, scope) {
 	}
 };
 
-// Pattern: Initialization time branching - https://github.com/shichuan/javascript-patterns/blob/master/function-patterns/init-time-branching.html
 if (typeof window.addEventListener === 'function') {
   Bricks.Utils.prototype.addListener = function (el, type, fn) {
     el.addEventListener(type, fn, false);
@@ -64,4 +63,3 @@ if (typeof window.addEventListener === 'function') {
     el.detachEvent('on' + type, fn);
   };
 }
-// End Pattern
