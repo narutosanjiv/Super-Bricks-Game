@@ -3,20 +3,46 @@
 
 <head>
 	<meta charset="UTF-8" />
-	<script type="text/javascript" src="Bricks.Game.js"></script>
-	<script type="text/javascript" src="Bricks.Utils.js"></script>
-	<script type="text/javascript" src="Bricks.Ball.js"></script>
-	<script type="text/javascript" src="Bricks.Paddle.js"></script>
-	<script type="text/javascript" src="Bricks.Brick.js"></script>
-	<script type="text/javascript" src="Bricks.Level.js"></script>
-	<script type="text/javascript" src="main.js"></script>
-	<link rel="stylesheet" type="text/css" href="styles.css" />
-</head>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 
+	<script type="text/javascript" src="game-js/Bricks.Game.js"></script>
+	<script type="text/javascript" src="game-js/Bricks.Utils.js"></script>
+	<script type="text/javascript" src="game-js/Bricks.Ball.js"></script>
+	<script type="text/javascript" src="game-js/Bricks.Paddle.js"></script>
+	<script type="text/javascript" src="game-js/Bricks.Brick.js"></script>
+	<script type="text/javascript" src="game-js/Bricks.Level.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	
+	<script type="text/javascript" src="js/scrollto/jquery.scrollTo-1.4.2-min.js"></script>         <!-- SCROLLTO -->
+	<script type="text/javascript" src="js/scrollto/jquery.localscroll-1.2.7-min.js"></script>      <!-- LOCAL SCROLL -->
+	<script type="text/javascript" src="js/bxSlider/jquery.bxSlider.min.js"></script>               <!-- SLIDER -->
+	<script type="text/javascript" src="js/superfish/superfish.js"></script>                        <!-- SUPERFISH -->
+	<script type="text/javascript" src="js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>        <!-- FANCYBOX -->
+	<script type="text/javascript" src="js/snippet/jquery.snippet.min.js"></script>                 <!-- SNIPPET -->
+	<script type="text/javascript" src="js/placeholder/jquery.placeholder.min.js"></script>         <!-- HTML5 PLACEHOLDER -->
+	<script type="text/javascript" src="js/kickstart.js"></script>                                  <!-- KICKSTART -->
+	<link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
+	<link rel="stylesheet" type="text/css" href="css/kickstart-buttons.css" media="all" /> 	
+	<link rel="stylesheet" type="text/css" href="css/styles.css" media="all" />
+</head>
 <body>
-	<div id="wrap">
-		<canvas id="canvas" width="490" height="500"></canvas>
+	<div id="wrap" class="clearfix">
+		<h1>Super Bricks</h1>
+		<div class="col_8">
+			<canvas id="canvas" width="530" height="500"></canvas>
+		</div>
+		<div class="col_4">
+			<h3>Instructions</h3>
+			<ul class="checks">
+				<li>Use the left and right key arrows and don't let the ball fall!</li>
+				<li>Use ENTER to start the game.</li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+		<div id="footer">
+			<p>This game is a result of <a href="http://karlmendes.com">me</a> wanting to play with some HTML5 canvas feature. If you want to add more features
+			and make the code better just <a href="https://github.com/kmendes/Super-Bricks-Game">fork it on Github</a>.</p>
+		</div>
 	</div>
 </body>
-
 </html>
