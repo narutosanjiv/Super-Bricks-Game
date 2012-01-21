@@ -11,7 +11,7 @@ Bricks.Brick = function (game, options) {
 		y: 0,
 		color: "#C6C6C6"
 	};
-	this.alive = true;
+	this.isAlive = true;
 	this.options = this.game.utils.extend(this.defaultOptions, options);
 	this.init();
 };
@@ -21,7 +21,7 @@ Bricks.Brick.prototype.init = function () {
 };
 
 Bricks.Brick.prototype.render = function () {
-	if (this.alive) {
+	if (this.isAlive) {
 		this.game.utils.drawRectangle(this.options.color, this.options.x, this.options.y, this.options.width, this.options.height);
 		return true;
 	} else {
@@ -31,6 +31,6 @@ Bricks.Brick.prototype.render = function () {
 
 Bricks.Brick.prototype.collide = function (ball) {
 	ball.options.speed.y = -ball.options.speed.y;
-	this.alive = false;
+	this.isAlive = false;
 	this.game.removeStaticBallCollider(this.options);
 };

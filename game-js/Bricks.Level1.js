@@ -2,9 +2,10 @@
 	Bricks = {};
 }
 
-Bricks.Level = function (game, options) {
+Bricks.Level1 = function (game, options) {
 	this.game = game;
-
+	this.levelNumber = 1;
+	this.name = "Level 1 - The one everybody can do it.";
 	this.defaultOptions = {
 		canvas: {
 			padding: 5
@@ -15,30 +16,7 @@ Bricks.Level = function (game, options) {
 		balls: [
 			{
 				speed: {x: -2,y: 4}, 
-				startPosition: {x: 10,y: 100}
-			},
-			{
-				color: "#333333", 
-				speed: {x: -2,y: 4},
-				startPosition: {x: 290,y: 200}
-			},
-			{
-				speed: {x: -2,y: 4}, 
-				startPosition: {x: 40,y: 180}
-			},
-			{
-				color: "#333333", 
-				speed: {x: -2,y: 4},
-				startPosition: {x: 250,y: 300}
-			},
-			{
-				speed: {x: -2,y: 4}, 
 				startPosition: {x: 60,y: 100}
-			},
-			{
-				color: "#333333", 
-				speed: {x: -2,y: 4},
-				startPosition: {x: 230,y: 150}
 			}
 		],
 		bricks: {
@@ -56,7 +34,7 @@ Bricks.Level = function (game, options) {
 	this.init();
 };
 
-Bricks.Level.prototype.init = function () {
+Bricks.Level1.prototype.init = function () {
 	var i;
 	this.createBricks();
 	this.game.utils.each(this.options.balls, function (el) {
@@ -67,7 +45,7 @@ Bricks.Level.prototype.init = function () {
 	}, this); 
 };
 
-Bricks.Level.prototype.render = function () {
+Bricks.Level1.prototype.render = function () {
 	var count = 0, i, j;
 	for (i = 0; i < this.options.bricks.rows; i += 1) {
 		for (j = 0; j < this.options.bricks.cols; j += 1) {
@@ -81,7 +59,7 @@ Bricks.Level.prototype.render = function () {
 	}
 };
 
-Bricks.Level.prototype.createBricks = function () {
+Bricks.Level1.prototype.createBricks = function () {
 	this.options.bricks.width = ((this.game.options.width - 2 * this.options.canvas.padding) / this.options.bricks.cols) - this.options.bricks.margin;
 	var i, j, options;
 	this.bricks = [];

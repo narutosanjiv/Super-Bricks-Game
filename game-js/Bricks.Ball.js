@@ -16,12 +16,12 @@ Bricks.Ball = function (game, options) {
 };
 
 Bricks.Ball.prototype.init = function () {
-	this.alive = true;
+	this.isAlive = true;
 	this.game.dynamicBallColliders.push(this);
 };
 
 Bricks.Ball.prototype.render = function () {
-	if (this.alive) {
+	if (this.isAlive) {
 		var ball = this;
 		this.game.utils.drawCircle(this.options.color, this.position.x, this.position.y, this.options.size);
 		this.game.testCollision(this);

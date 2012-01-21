@@ -13,16 +13,22 @@ Bricks.Game = function (canvasId, options) {
 	this.context = null;
 	this.canvas = null;
 	this.init(canvasId);
+	this.levels = [];
+	this.levels.push(Bricks.Level1);
+	this.levels.push(Bricks.Level2);
+	this.currentLevelIndex = 0;
 };
 
 Bricks.Game.prototype.init = function (canvasId) {
 	this.utils = new Bricks.Utils(this);
 	this.options = this.utils.extend(this.defaultOptions, this.initialOptions);
 	this.canvasId = canvasId;
+	this.isRunning = false;
 };
 
 Bricks.Game.prototype.prepare = function () {
 	var i, j;
+	this.currentLevelNumber += 1;
 	this.canvas = document.getElementById(this.canvasId);
 	this.context = this.canvas.getContext("2d");
 	this.options.width = this.canvas.width;
@@ -38,7 +44,7 @@ Bricks.Game.prototype.prepare = function () {
 		}
 	}
 	this.addStaticBallCollider(this.wallCollision, this, {x: 0, y: 0, width: this.options.width, height: this.options.height});
-	this.level = new Bricks.Level(this);
+	this.level = new this.levels[this.currentLevelIndex](this);
 	this.update();
 };
 
@@ -53,6 +59,7 @@ Bricks.Game.prototype.pause = function () {
 }
 
 Bricks.Game.prototype.reset = function () {
+	this.currentLevelIndex = 0;
 	this.init(this.canvasId);
 	this.prepare();
 };
@@ -66,9 +73,9 @@ Bricks.Game.prototype.wallCollision = function (ball) {
 	if (ball.position.y + ball.options.speed.y - ball.options.size < 0) {
 		ball.options.speed.y = -ball.options.speed.y;
     } else if (ball.position.y + ball.options.speed.y + ball.options.size > this.options.height) {
-		ball.alive = false;
+		ball.isAlive = false;
 		for (i; i < this.balls.length; i += 1){
-			if (this.balls[i].alive) {
+			if (this.balls[i].isAlive) {
 				goodBallsCount += 1;
 			}
 		}
@@ -87,8 +94,15 @@ Bricks.Game.prototype.update = function () {
 
 Bricks.Game.prototype.win = function () {
 	clearInterval(this.intervalTimer);
-	if (confirm("You win!!! Do you want to play again?")) {
-		this.reset();
+	this.currentLevelIndex += 1;
+	if (typeof this.levels[this.currentLevelIndex] !== "undefined") {
+		if (confirm("Ready for next level?")) {
+			this.prepare();
+		}
+	} else {
+		if (confirm("You win!!! Do you want to play again?")) {
+			this.reset();
+		}
 	}
 };
 
