@@ -2,13 +2,14 @@
 	Bricks = {};
 }
 
-Bricks.Game = function (canvasId) {
-	this.params = {
+Bricks.Game = function (canvasId, options) {
+	this.defaultOptions = {
 		background: "#000000",
 		fps: 60,
 		width: null,
 		height: null
 	};
+	this.options = options;
 	this.context = null;
 	this.canvas = null;
 	this.dynamicBallColliders = [];
@@ -17,6 +18,7 @@ Bricks.Game = function (canvasId) {
 
 Bricks.Game.prototype.init = function (canvasId) {
 	this.utils = new Bricks.Utils(this);
+	this.options = this.utils.extend(this.defaultOptions, this.options);
 	this.balls = [];
 	this.paddles = [];
 	this.canvasId = canvasId;
@@ -24,19 +26,19 @@ Bricks.Game.prototype.init = function (canvasId) {
 
 Bricks.Game.prototype.start = function () {
 	var i, j, self = this,
-		interval = 1 / this.params.fps * 1000;
+		interval = 1 / this.options.fps * 1000;
 	this.canvas = document.getElementById(this.canvasId);
 	this.context = this.canvas.getContext("2d");
-	this.params.width = this.canvas.width;
-	this.params.height = this.canvas.height;
+	this.options.width = this.canvas.width;
+	this.options.height = this.canvas.height;
 	this.collisionPoints = [];
-	for (i = 0; i < this.params.width; i += 1) {
+	for (i = 0; i < this.options.width; i += 1) {
 		this.collisionPoints[i] = [];
-		for (j = 0; j < this.params.height; j += 1) {
+		for (j = 0; j < this.options.height; j += 1) {
 			this.collisionPoints[i][j] = null;
 		}
 	}
-	this.addStaticBallCollider(this.wallCollision, this, {x: 0, y: 0, width: this.params.width, height: this.params.height});
+	this.addStaticBallCollider(this.wallCollision, this, {x: 0, y: 0, width: this.options.width, height: this.options.height});
 	this.level = new Bricks.Level(this);
 	this.intervalTimer = setInterval(function () { self.update.apply(self); }, interval);
 };
@@ -49,12 +51,12 @@ Bricks.Game.prototype.reset = function () {
 Bricks.Game.prototype.wallCollision = function (ball) {
 	var goodBallsCount = 0,
 		i = 0;
-	if (ball.position.x + ball.options.speed.x + ball.options.size > this.params.width || ball.position.x + ball.options.speed.x - ball.options.size < 0) {
+	if (ball.position.x + ball.options.speed.x + ball.options.size > this.options.width || ball.position.x + ball.options.speed.x - ball.options.size < 0) {
 		ball.options.speed.x = -ball.options.speed.x;
     }
 	if (ball.position.y + ball.options.speed.y - ball.options.size < 0) {
 		ball.options.speed.y = -ball.options.speed.y;
-    } else if (ball.position.y + ball.options.speed.y + ball.options.size > this.params.height) {
+    } else if (ball.position.y + ball.options.speed.y + ball.options.size > this.options.height) {
 		ball.alive = false;
 		for (i; i < this.balls.length; i += 1){
 			if (this.balls[i].alive) {
@@ -90,8 +92,8 @@ Bricks.Game.prototype.gameOver = function () {
 };
 
 Bricks.Game.prototype.clear = function () {
-	this.context.clearRect(0, 0, this.params.width, this.params.height);
-	this.utils.drawRectangle(this.params.background, 0, 0, this.params.width, this.params.height);
+	this.context.clearRect(0, 0, this.options.width, this.options.height);
+	this.utils.drawRectangle(this.options.background, 0, 0, this.options.width, this.options.height);
 };
 
 Bricks.Game.prototype.addStaticBallCollider = function (func, scope, options) {

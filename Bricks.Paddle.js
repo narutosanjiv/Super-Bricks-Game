@@ -4,24 +4,20 @@
 
 Bricks.Paddle = function (game, options) {
 	this.game = game;
-
 	this.defaultOptions = {
 		height: 10,
 		width: 75,
 		color: "#F2F2F2",
 		click: 3
 	};
-
 	this.position =  {x: 0, y: 0};
-
 	this.options = this.game.utils.extend(this.defaultOptions, options);
-
 	this.init();
 };
 
 Bricks.Paddle.prototype.init = function () {
-	this.position.x = this.game.params.width / 2;
-	this.position.y = this.game.params.height - this.options.height;
+	this.position.x = this.game.options.width / 2;
+	this.position.y = this.game.options.height - this.options.height;
 	this.game.dynamicBallColliders.push(this);
 	var self = this;
 	this.game.utils.addListener(document, "keydown", function (e) { self.onKeyDown.call(self, e); });
@@ -39,10 +35,10 @@ Bricks.Paddle.prototype.testCollision = function (ball) {
 
 Bricks.Paddle.prototype.render = function () {
 	if (this.moveRight) {
-		if ((this.position.x + this.options.click + this.options.width) <= this.game.params.width) {
+		if ((this.position.x + this.options.click + this.options.width) <= this.game.options.width) {
 			this.position.x += this.options.click;
 		} else {
-			this.position.x = this.game.params.width - this.options.width;
+			this.position.x = this.game.options.width - this.options.width;
 		}
 	}
 	if (this.moveLeft) {
