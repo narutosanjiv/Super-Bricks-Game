@@ -38,11 +38,19 @@ Bricks.Paddle.prototype.testCollision = function (ball) {
 };
 
 Bricks.Paddle.prototype.render = function () {
-	if (this.moveRight && (this.position.x + this.options.click + this.options.width) <= this.game.params.width) {
-		this.position.x += this.options.click;
+	if (this.moveRight) {
+		if ((this.position.x + this.options.click + this.options.width) <= this.game.params.width) {
+			this.position.x += this.options.click;
+		} else {
+			this.position.x = this.game.params.width - this.options.width;
+		}
 	}
-	if (this.moveLeft && (this.position.x - this.options.click) >= 0) {
-		this.position.x -= this.options.click;
+	if (this.moveLeft) {
+		if ((this.position.x - this.options.click) >= 0) {
+			this.position.x -= this.options.click;
+		} else {
+			this.position.x = 0;
+		}
 	}
 	this.game.utils.drawRectangle(this.options.color, this.position.x, this.position.y, this.options.width, this.options.height);
 };
