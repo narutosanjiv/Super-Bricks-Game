@@ -5,7 +5,7 @@
 Bricks.Level1 = function (game) {
 	this.game = game;
 	this.levelNumber = 1;
-	this.name = "Level 1 - The one everybody can do it.";
+	this.name = "The one everybody can do it.";
 	this.options = {
 		canvas: {
 			padding: 5
@@ -26,8 +26,10 @@ Bricks.Level1 = function (game) {
 			height: 15,
 			margin: 1,
 			hitsToDestroy: 1,
+			score: 100,
 			colors: ["#becdff", "#becdff", "#727b9a", "#cad082"]
-		}
+		},
+		levelBonusScore: 0
 	};
 
 	this.init();
@@ -41,7 +43,8 @@ Bricks.Level1.prototype.init = function () {
 	}, this); 
 	this.game.utils.each(this.options.paddles, function (el) {
 		this.game.paddles.push(new Bricks.Paddle(this.game, el));
-	}, this); 
+	}, this);
+	this.game.addToScore(this.options.levelBonusScore);
 };
 
 Bricks.Level1.prototype.render = function () {
@@ -71,7 +74,8 @@ Bricks.Level1.prototype.createBricks = function () {
 				x: (j * (this.options.bricks.width + this.options.bricks.margin)) + this.options.canvas.padding,
 				y: (i * (this.options.bricks.height + this.options.bricks.margin)) + this.options.canvas.padding,
 				colors: this.options.bricks.colors,
-				hitsToDestroy: this.options.bricks.hitsToDestroy
+				hitsToDestroy: this.options.bricks.hitsToDestroy,
+				score: this.options.bricks.score
 			};
 			this.bricks[i][j] = new Bricks.Brick(this.game, options);
 		}

@@ -8,7 +8,8 @@ Bricks.Ball = function (game, options) {
 		speed: {x: 2, y: 4},
 		size: 10,
 		color: "#FFFFFF",
-		startPosition: {x: 200, y: 300}
+		startPosition: {x: 200, y: 300},
+		score: -50
 	};
 	this.options = this.game.utils.extend(this.defaultOptions, options);
 	this.position =  this.options.startPosition;

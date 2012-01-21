@@ -10,7 +10,8 @@ Bricks.Brick = function (game, options) {
 		x: 0,
 		y: 0,
 		colors: ["#bcb8a4", "#9eaaf4", "#5f668f", "#404460"],
-		hitsToDestroy: 1
+		hitsToDestroy: 1,
+		score: 100
 	};
 	this.isAlive = true;
 	this.options = this.game.utils.extend(this.defaultOptions, options);
@@ -32,6 +33,7 @@ Bricks.Brick.prototype.render = function () {
 
 Bricks.Brick.prototype.collide = function (ball) {
 	ball.options.speed.y = -ball.options.speed.y;
+	this.game.addToScore(this.options.score);
 	if (this.options.hitsToDestroy > 1) {
 		this.options.hitsToDestroy -= 1;
 	} else if (this.options.hitsToDestroy == 1) {

@@ -4,7 +4,7 @@
 
 Bricks.Level2 = function (game, options) {
 	this.game = game;
-	this.name = "Level 2 - Juggling";
+	this.name = "Juggling";
 	this.options = {
 		canvas: {
 			padding: 5
@@ -48,8 +48,10 @@ Bricks.Level2 = function (game, options) {
 			height: 25,
 			margin: 1,
 			hitsToDestroy: 1,
+			score: 100,
 			colors: ["#bcb8a4", "#9eaaf4", "#5f668f", "#404460"]
-		}
+		},
+		levelBonusScore: 2000
 	};
 	this.init();
 };
@@ -74,7 +76,8 @@ Bricks.Level2.prototype.createBricks = function () {
 				x: (j * (this.options.bricks.width + this.options.bricks.margin)) + this.options.canvas.padding,
 				y: (i * (this.options.bricks.height + this.options.bricks.margin)) + this.options.canvas.padding,
 				colors: this.options.bricks.colors,
-				hitsToDestroy: hitsToDestroy
+				hitsToDestroy: hitsToDestroy,
+				score: this.options.bricks.score
 			};
 			this.bricks[i][j] = new Bricks.Brick(this.game, options);
 		}

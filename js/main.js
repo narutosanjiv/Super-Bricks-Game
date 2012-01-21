@@ -1,4 +1,4 @@
-﻿GAME = new Bricks.Game("canvas");
+﻿GAME = new Bricks.Game("canvas",{scoreElementId: "score", levelElementId: "level"});
 GAME.utils.addListener(window, "load", function () {
 	GAME.prepare();
 	GAME.utils.addListener(document, "keyup", function (e) {

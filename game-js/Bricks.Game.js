@@ -7,7 +7,9 @@ Bricks.Game = function (canvasId, options) {
 		background: "#000000",
 		fps: 60,
 		width: null,
-		height: null
+		height: null,
+		scoreElementId: null,
+		levelElementId: null
 	};
 	this.initialOptions = options;
 	this.context = null;
@@ -24,10 +26,14 @@ Bricks.Game.prototype.init = function (canvasId) {
 	this.options = this.utils.extend(this.defaultOptions, this.initialOptions);
 	this.canvasId = canvasId;
 	this.isRunning = false;
+	this.score = 0;
 };
 
 Bricks.Game.prototype.prepare = function () {
 	var i, j;
+	this.scoreElement = document.getElementById(this.options.scoreElementId);
+	this.levelElement = document.getElementById(this.options.levelElementId);
+	this.scoreElement.innerHTML = this.score;
 	this.currentLevelNumber += 1;
 	this.canvas = document.getElementById(this.canvasId);
 	this.context = this.canvas.getContext("2d");
@@ -45,6 +51,7 @@ Bricks.Game.prototype.prepare = function () {
 	}
 	this.addStaticBallCollider(this.wallCollision, this, {x: 0, y: 0, width: this.options.width, height: this.options.height});
 	this.level = new this.levels[this.currentLevelIndex](this);
+	this.levelElement.innerHTML = this.currentLevelIndex + 1 + "/" + this.levels.length + " - " + this.level.name; 
 	this.update();
 };
 
@@ -66,6 +73,7 @@ Bricks.Game.prototype.pause = function () {
 
 Bricks.Game.prototype.reset = function () {
 	this.currentLevelIndex = 0;
+	this.score = 0;
 	this.init(this.canvasId);
 	this.prepare();
 };
@@ -80,6 +88,7 @@ Bricks.Game.prototype.wallCollision = function (ball) {
 		ball.options.speed.y = -ball.options.speed.y;
     } else if (ball.position.y + ball.options.speed.y + ball.options.size > this.options.height) {
 		ball.isAlive = false;
+		this.addToScore(ball.options.score);
 		for (i; i < this.balls.length; i += 1){
 			if (this.balls[i].isAlive) {
 				goodBallsCount += 1;
@@ -90,6 +99,11 @@ Bricks.Game.prototype.wallCollision = function (ball) {
 		}
     }
 }
+
+Bricks.Game.prototype.addToScore = function (points) {
+	this.score = this.score + points;
+	this.scoreElement.innerHTML = this.score;
+};
 
 Bricks.Game.prototype.update = function () {
 	this.clear();
