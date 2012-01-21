@@ -10,7 +10,7 @@ Bricks.Level = function (game, options) {
 			padding: 5
 		},
 		paddles: [
-			{width:120}
+			{width:120, click: 7}
 		],
 		balls: [
 			{
@@ -20,7 +20,25 @@ Bricks.Level = function (game, options) {
 			{
 				color: "#333333", 
 				speed: {x: -2,y: 4},
-				startPosition: {x: 290,y: 300}
+				startPosition: {x: 290,y: 200}
+			},
+			{
+				speed: {x: -2,y: 4}, 
+				startPosition: {x: 40,y: 70}
+			},
+			{
+				color: "#333333", 
+				speed: {x: -2,y: 4},
+				startPosition: {x: 250,y: 300}
+			},
+			{
+				speed: {x: -2,y: 4}, 
+				startPosition: {x: 60,y: 100}
+			},
+			{
+				color: "#333333", 
+				speed: {x: -2,y: 4},
+				startPosition: {x: 230,y: 150}
 			}
 		],
 		bricks: {

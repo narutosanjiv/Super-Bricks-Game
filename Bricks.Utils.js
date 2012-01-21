@@ -52,14 +52,14 @@ Bricks.Utils.prototype.each = function (elements, func, scope) {
 };
 
 if (typeof window.addEventListener === 'function') {
-  Bricks.Utils.prototype.addListener = function (el, type, fn) {
-    el.addEventListener(type, fn, false);
-  };
+	Bricks.Utils.prototype.addListener = function (el, type, fn) {
+		el.addEventListener(type, fn, false);
+	};
 } else if (typeof document.attachEvent === 'function') {
-  Bricks.Utils.prototype.addListener = function (el, type, fn) {
-    el.attachEvent('on' + type, fn);
-  };
-  Bricks.Utils.prototype.removeListener = function (el, type, fn) {
-    el.detachEvent('on' + type, fn);
-  };
+	Bricks.Utils.prototype.addListener = function (el, type, fn) {
+		el.attachEvent('on' + type, fn);
+	};
+	Bricks.Utils.prototype.removeListener = function (el, type, fn) {
+		el.detachEvent('on' + type, fn);
+	};
 }
