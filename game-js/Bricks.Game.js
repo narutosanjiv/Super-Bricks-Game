@@ -55,7 +55,6 @@ Bricks.Game.prototype.pause = function () {
 Bricks.Game.prototype.reset = function () {
 	this.init(this.canvasId);
 	this.prepare();
-	this.start();
 };
 
 Bricks.Game.prototype.wallCollision = function (ball) {
