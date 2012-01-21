@@ -5,7 +5,7 @@
 Bricks.Level1 = function (game) {
 	this.game = game;
 	this.levelNumber = 1;
-	this.name = "The one everybody can do it.";
+	this.name = "The one everybody can do";
 	this.options = {
 		canvas: {
 			padding: 5
