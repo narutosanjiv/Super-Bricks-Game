@@ -2,11 +2,11 @@
 	Bricks = {};
 }
 
-Bricks.Level1 = function (game, options) {
+Bricks.Level1 = function (game) {
 	this.game = game;
 	this.levelNumber = 1;
 	this.name = "Level 1 - The one everybody can do it.";
-	this.defaultOptions = {
+	this.options = {
 		canvas: {
 			padding: 5
 		},
@@ -25,11 +25,10 @@ Bricks.Level1 = function (game, options) {
 			width: null,
 			height: 15,
 			margin: 1,
-			colors: ["#FF1C0A", "#FFFD0A", "#00A308", "#0008DB", "#EB0093"]
+			hitsToDestroy: 1,
+			colors: ["#becdff", "#becdff", "#727b9a", "#cad082"]
 		}
 	};
-
-	this.options = this.game.utils.extend(this.defaultOptions, options);
 
 	this.init();
 };
@@ -71,7 +70,8 @@ Bricks.Level1.prototype.createBricks = function () {
 				width: this.options.bricks.width,
 				x: (j * (this.options.bricks.width + this.options.bricks.margin)) + this.options.canvas.padding,
 				y: (i * (this.options.bricks.height + this.options.bricks.margin)) + this.options.canvas.padding,
-				color: this.options.bricks.colors[this.game.utils.randomFromTo(0, this.options.bricks.colors.length - 1)]
+				colors: this.options.bricks.colors,
+				hitsToDestroy: this.options.bricks.hitsToDestroy
 			};
 			this.bricks[i][j] = new Bricks.Brick(this.game, options);
 		}

@@ -8,7 +8,8 @@ Bricks.Paddle = function (game, options) {
 		height: 10,
 		width: 75,
 		color: "#F2F2F2",
-		click: 3
+		click: 3,
+		startPostion: -1
 	};
 	this.position =  {x: 0, y: 0};
 	this.options = this.game.utils.extend(this.defaultOptions, options);
@@ -16,7 +17,11 @@ Bricks.Paddle = function (game, options) {
 };
 
 Bricks.Paddle.prototype.init = function () {
-	this.position.x = this.game.options.width / 2;
+	if (this.options.startPostion === -1) {
+		this.position.x = this.game.options.width / 2;
+	} else {
+		this.position.x = this.options.startPostion / 2;
+	}
 	this.position.y = this.game.options.height - this.options.height;
 	this.game.dynamicBallColliders.push(this);
 	var self = this;

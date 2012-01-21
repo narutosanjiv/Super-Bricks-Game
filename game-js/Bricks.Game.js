@@ -16,7 +16,7 @@ Bricks.Game = function (canvasId, options) {
 	this.levels = [];
 	this.levels.push(Bricks.Level1);
 	this.levels.push(Bricks.Level2);
-	this.currentLevelIndex = 0;
+	this.currentLevelIndex = 1;
 };
 
 Bricks.Game.prototype.init = function (canvasId) {
@@ -49,12 +49,16 @@ Bricks.Game.prototype.prepare = function () {
 };
 
 Bricks.Game.prototype.start = function () {
-	var self = this,
-		interval = 1 / this.options.fps * 1000;
-	this.intervalTimer = setInterval(function () { self.update.apply(self); }, interval);
+	if (!this.isRunning) {
+		var self = this,
+			interval = 1 / this.options.fps * 1000;
+		this.intervalTimer = setInterval(function () { self.update.apply(self); }, interval);
+		this.isRunning = true;
+	}
 }
 
 Bricks.Game.prototype.pause = function () {
+	this.isRunning = false;
 	clearInterval(this.intervalTimer);
 }
 
@@ -93,7 +97,7 @@ Bricks.Game.prototype.update = function () {
 };
 
 Bricks.Game.prototype.win = function () {
-	clearInterval(this.intervalTimer);
+	this.pause();
 	this.currentLevelIndex += 1;
 	if (typeof this.levels[this.currentLevelIndex] !== "undefined") {
 		if (confirm("Ready for next level?")) {
@@ -107,7 +111,7 @@ Bricks.Game.prototype.win = function () {
 };
 
 Bricks.Game.prototype.gameOver = function () {
-	clearInterval(this.intervalTimer);
+	this.pause();
 	if (confirm("Loser!!! Do you want to play again?")) {
 		this.reset();
 	}
