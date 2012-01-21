@@ -24,7 +24,7 @@ Bricks.Level = function (game, options) {
 			},
 			{
 				speed: {x: -2,y: 4}, 
-				startPosition: {x: 40,y: 70}
+				startPosition: {x: 40,y: 180}
 			},
 			{
 				color: "#333333", 
@@ -93,7 +93,7 @@ Bricks.Level.prototype.createBricks = function () {
 				width: this.options.bricks.width,
 				x: (j * (this.options.bricks.width + this.options.bricks.margin)) + this.options.canvas.padding,
 				y: (i * (this.options.bricks.height + this.options.bricks.margin)) + this.options.canvas.padding,
-				color: this.options.bricks.colors[this.game.utils.randomFromTo(0, this.options.bricks.colors.length)]
+				color: this.options.bricks.colors[this.game.utils.randomFromTo(0, this.options.bricks.colors.length - 1)]
 			};
 			this.bricks[i][j] = new Bricks.Brick(this.game, options);
 		}
