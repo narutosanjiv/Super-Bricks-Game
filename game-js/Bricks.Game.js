@@ -16,7 +16,7 @@ Bricks.Game = function (canvasId, options) {
 	this.levels = [];
 	this.levels.push(Bricks.Level1);
 	this.levels.push(Bricks.Level2);
-	this.currentLevelIndex = 1;
+	this.currentLevelIndex = 0;
 };
 
 Bricks.Game.prototype.init = function (canvasId) {
@@ -58,8 +58,10 @@ Bricks.Game.prototype.start = function () {
 }
 
 Bricks.Game.prototype.pause = function () {
-	this.isRunning = false;
-	clearInterval(this.intervalTimer);
+	if (this.isRunning) {
+		this.isRunning = false;
+		clearInterval(this.intervalTimer);
+	}
 }
 
 Bricks.Game.prototype.reset = function () {

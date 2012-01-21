@@ -59,7 +59,7 @@ Bricks.Level2.prototype.init = Bricks.Level1.prototype.init;
 Bricks.Level2.prototype.render = Bricks.Level1.prototype.render;
 
 Bricks.Level2.prototype.createBricks = function () {
-	this.options.bricks.width = ((this.game.options.width - 2 * this.options.canvas.padding) / this.options.bricks.cols) - this.options.bricks.margin;
+	this.options.bricks.width = Math.floor(((this.game.options.width - 2 * this.options.canvas.padding) / this.options.bricks.cols) - this.options.bricks.margin);
 	var i, j, options, hitsToDestroy = 1;
 	this.bricks = [];
 	for (i = 0; i < this.options.bricks.rows; i += 1) {

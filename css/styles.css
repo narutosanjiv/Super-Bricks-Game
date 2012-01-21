@@ -81,4 +81,7 @@ text-shadow:0px 1px 1px #fff;
 	-webkit-border-radius:3px;
 	border-radius:3px;
 }
-#canvas{border:5px gray solid;margin-bottom:20px;}
+#canvas{border: 5px gray solid;margin-bottom:20px;}
+.top{height:20px;padding: 0 5px;background-color:#350e58;color:#ffffff;border-top: 5px gray solid;border-right: 5px gray solid;border-left: 5px gray solid;}
+.top .level{height:20px;float:left;}
+.top .score{height:20px;float:right;}
